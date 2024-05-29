@@ -1,4 +1,5 @@
 version: 0.2
+
 phases:
   install:
     commands:
@@ -9,6 +10,8 @@ phases:
       - echo Build started on `date`
       - echo Compiling the Node.js code...
       - npm run build
+
 artifacts:
   files:
     - '**/*'
+  base-directory: .
