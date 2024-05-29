@@ -3,20 +3,15 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Nothing to do in the install phase
-  pre_build:
-    commands:
-      - echo Nothing to do in the pre-build phase
+      - echo Installing source NPM dependencies...
+      - npm install
   build:
     commands:
       - echo Build started on `date`
-      - npm install
-      - echo Build completed on `date`
-  post_build:
-    commands:
-      - echo Nothing to do in the post-build phase
+      - echo Compiling the Node.js code...
+      - npm run build
 
 artifacts:
   files:
     - '**/*'
-  discard-paths: yes
+  base-directory: .
