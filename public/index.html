@@ -4,60 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NACOSS Due Payment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
-            background-color: #f3f3f3;
+            background-color: #1a1a1a;
+            background-image: linear-gradient(135deg, #1a1a1a 25%, transparent 25%), 
+                              linear-gradient(225deg, #1a1a1a 25%, transparent 25%), 
+                              linear-gradient(45deg, #1a1a1a 25%, transparent 25%), 
+                              linear-gradient(315deg, #1a1a1a 25%, #2e2e2e 25%);
+            background-position: 10px 0, 10px 0, 0 0, 0 0;
+            background-size: 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #ffffff;
         }
         .navbar {
-            background-color: #4b0082; /* Purple color */
+            background-color: #004d00; /* Dark Green */
+            width: 100%;
             overflow: hidden;
+            position: fixed;
+            top: 0;
+            display: flex;
+            justify-content: center;
         }
         .navbar a {
-            float: left;
             display: block;
-            color: #f3f3f3;
+            color: #ffffff;
             text-align: center;
             padding: 14px 20px;
             text-decoration: none;
+            font-weight: bold;
         }
         .navbar a:hover {
-            background-color: #dda520; /* Gold color */
-            color: #000;
+            background-color: #004d00;
+            color: #ffffff;
         }
         .container {
             padding: 20px;
+            background-color: #2e2e2e;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            margin-top: 60px; /* Adjust for navbar height */
         }
         h1 {
-            color: #4b0082; /* Purple color */
+            color: #32cd32; /* Lime Green */
+            font-size: 24px;
         }
         .form-group {
             margin-bottom: 15px;
+            text-align: left;
+            padding-right: 23px;
         }
         .form-group label {
             display: block;
-            color: #4b0082;
+            color: #32cd32; /* Lime Green */
             margin-bottom: 5px;
         }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 10px;
+            border: 1px solid #4d4d4d;
+            border-radius: 8px;
+            background-color: #4d4d4d;
+            color: #ffffff;
         }
         .form-group input[type="submit"] {
-            background-color: #dda520; /* Gold color */
-            color: #fff;
+            background-color: #32cd32; /* Lime Green */
+            color: #1a1a1a;
             border: none;
             cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
         }
         .form-group input[type="submit"]:hover {
-            background-color: #4b0082; /* Purple color */
+            background-color: #004d00; /* Dark Green */
         }
-        .message {
-            margin-top: 20px;
-            color: green;
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #2e2e2e;
+            padding: 20px;
+            border: 1px solid #32cd32;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .close-btn {
+            background-color: #32cd32;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .close-btn:hover {
+            background-color: #004d00;
         }
     </style>
 </head>
@@ -96,7 +161,13 @@
                 <input type="submit" value="Pay Dues">
             </div>
         </form>
-        <div class="message" id="message"></div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p id="modalMessage"></p>
+            <button class="close-btn" id="closeModal">OK</button>
+        </div>
     </div>
 
     <script>
@@ -108,10 +179,16 @@
             const department = document.getElementById('department').value;
             const level = document.getElementById('level').value;
             
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = Thank you, ${fullName}, for your payment. A confirmation has been sent to ${email}.;
+            const message = `Thank you, ${fullName}, for your payment. A confirmation has been sent to ${email}.`;
+            
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('myModal').style.display = 'flex';
             
             document.getElementById('duePaymentForm').reset();
+        });
+
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('myModal').style.display = 'none';
         });
     </script>
 </body>
